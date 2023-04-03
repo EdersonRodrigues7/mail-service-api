@@ -22,7 +22,6 @@ function runMiddleware(
 ) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {
-      res.setHeader("Access-Control-Allow-Origin", "https://delta-10-landing-page.vercel.app");
       if (result instanceof Error) {
         return reject(result)
       }
@@ -42,7 +41,6 @@ export default async function handler(
         const nodemailerMailAdapter = new NodemailerMailAdapter();
         const budgetController = new BudgetController(req.body, nodemailerMailAdapter);
         await budgetController.execute();
-        res.setHeader("Access-Control-Allow-Origin", "https://delta-10-landing-page.vercel.app");
         return res.status(201).send({ok: "Orçamento solicitado com sucesso!"});
     } catch (error: any) {
         return res.status(500).send({error: error.message});
