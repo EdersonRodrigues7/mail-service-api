@@ -3,10 +3,10 @@ import Cors from 'cors';
 import { NodemailerMailAdapter } from '@/src/adapters/nodemailer/nodemailer-mail-adapter';
 import { BudgetController } from '@/src/controllers/budget-controller';
 
-type Data = {
-  ok?: string,
-  error?: string
-}
+// type Data = {
+//   ok?: string,
+//   error?: string
+// }
 
 const cors = Cors({
   methods: ['POST', 'GET', 'HEAD', 'OPTIONS'],
@@ -31,7 +31,7 @@ function runMiddleware(
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   if(req.method === 'POST'){
     await runMiddleware(req, res, cors)
@@ -43,7 +43,10 @@ export default async function handler(
     } catch (error: any) {
         return res.status(500).send({error: error.message});
     } 
+  } else if (req.method === 'OPTIONS'){
+    console.log("Options method");
+    return res.status(200).send({ok: "Allowed"});
   }
-  
-  res.status(405);
+  console.log("General context");
+  return res.status(200).send({ok: "Allowed"});
 }
