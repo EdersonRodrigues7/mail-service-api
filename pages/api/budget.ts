@@ -9,7 +9,9 @@ import { BudgetController } from '@/src/controllers/budget-controller';
 // }
 
 const cors = Cors({
+  origin: "https://delta-10-landing-page.vercel.app",
   methods: ['POST', 'GET', 'HEAD', 'OPTIONS'],
+  allowedHeaders: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-Type",
   optionsSuccessStatus: 200
 })
 
@@ -39,6 +41,7 @@ export default async function handler(
         const nodemailerMailAdapter = new NodemailerMailAdapter();
         const budgetController = new BudgetController(req.body, nodemailerMailAdapter);
         await budgetController.execute();
+        console.log(res);
         return res.status(201).send({ok: "Orçamento solicitado com sucesso!"});
     } catch (error: any) {
         return res.status(500).send({error: error.message});
