@@ -37,6 +37,7 @@ export default async function handler(
 ) {
   if(req.method === 'POST'){
     await runMiddleware(req, res, cors)
+    console.log(req.body);
     try {
         const nodemailerMailAdapter = new NodemailerMailAdapter();
         const budgetController = new BudgetController(req.body, nodemailerMailAdapter);

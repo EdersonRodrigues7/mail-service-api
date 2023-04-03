@@ -14,18 +14,22 @@ export class BudgetController {
         if (!this.validate(this.request)) {
             throw new Error("Requisição inválida! Por favor preencha todos os campos obrigatórios.");
         };
-
-        await this.adapter.sendMail({
-            destination: this.request.destination,
-            subject: `Pedido de Orçamento: ${this.request.product}`,
-            body: [
-                `<div style="font-family: sans-serif; font-size: 16px; color: #111">`,
-                `<p>Nome do Cliente: ${this.request.name}</p>`,
-                `<p>E-mail do Cliente: ${this.request.email}</p>`,
-                `<p>Observação: ${this.request.observation}</p>`,
-                `</div>`
-              ].join('\n')
-        });
+        try{
+            await this.adapter.sendMail({
+                destination: this.request.destination,
+                subject: `Pedido de Orçamento: ${this.request.product}`,
+                body: [
+                    `<div style="font-family: sans-serif; font-size: 16px; color: #111">`,
+                    `<p>Nome do Cliente: ${this.request.name}</p>`,
+                    `<p>E-mail do Cliente: ${this.request.email}</p>`,
+                    `<p>Observação: ${this.request.observation}</p>`,
+                    `</div>`
+                  ].join('\n')
+            });
+        } catch(error){
+            throw new Error();
+        }
+        
     }
 
     validate(request: BudgetRequest): boolean {
