@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import Cors from 'cors';
 import { NodemailerMailAdapter } from '@/src/adapters/nodemailer/nodemailer-mail-adapter';
 import { BudgetController } from '@/src/controllers/budget-controller';
 
@@ -7,12 +8,33 @@ type Data = {
   error?: string
 }
 
+const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD', 'OPTIONS'],
+  optionsSuccessStatus: 200
+})
+
+function runMiddleware(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  fn: Function
+) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   if(req.method === 'POST'){
-    console.log("Arrived in POST request");
+    await runMiddleware(req, res, cors)
     try {
         const nodemailerMailAdapter = new NodemailerMailAdapter();
         const budgetController = new BudgetController(req.body, nodemailerMailAdapter);
