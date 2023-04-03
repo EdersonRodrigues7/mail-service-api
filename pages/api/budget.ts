@@ -42,7 +42,7 @@ export default async function handler(
         const nodemailerMailAdapter = new NodemailerMailAdapter();
         const budgetController = new BudgetController(req.body, nodemailerMailAdapter);
         await budgetController.execute();
-        console.log(res);
+        res.setHeader("Access-Control-Allow-Origin", "https://delta-10-landing-page.vercel.app");
         return res.status(201).send({ok: "Orçamento solicitado com sucesso!"});
     } catch (error: any) {
         return res.status(500).send({error: error.message});
