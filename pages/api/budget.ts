@@ -21,9 +21,7 @@ export default async function handler(
     } catch (error: any) {
         return res.status(500).send({error: error.message});
     } 
-  } else if(req.method === 'OPTIONS'){
-    console.log("Arrived in OPTIONS request");
-    return res.status(200);
   }
+  
   res.status(405);
 }
