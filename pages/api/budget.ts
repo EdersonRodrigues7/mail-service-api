@@ -23,6 +23,7 @@ export default async function handler(
     } 
   } else if(req.method === 'OPTIONS'){
     console.log("Arrived in OPTIONS request");
+    return res.status(200);
   }
   res.status(405);
 }
