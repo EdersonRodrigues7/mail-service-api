@@ -22,6 +22,7 @@ function runMiddleware(
 ) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {
+      res.setHeader("Access-Control-Allow-Origin", "https://delta-10-landing-page.vercel.app");
       if (result instanceof Error) {
         return reject(result)
       }
