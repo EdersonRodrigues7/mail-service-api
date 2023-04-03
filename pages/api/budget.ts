@@ -12,6 +12,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   if(req.method === 'POST'){
+    console.log("Arrived in POST request");
     try {
         const nodemailerMailAdapter = new NodemailerMailAdapter();
         const budgetController = new BudgetController(req.body, nodemailerMailAdapter);
@@ -21,7 +22,7 @@ export default async function handler(
         return res.status(500).send({error: error.message});
     } 
   } else if(req.method === 'OPTIONS'){
-
+    console.log("Arrived in OPTIONS request");
   }
   res.status(405);
 }
