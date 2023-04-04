@@ -11,13 +11,17 @@ const sender = { name: "D-Dev Mail Service", email: SENDER_EMAIL };
 
 export class MailtrapMailAdapter implements MailAdapter {
     async sendMail ({ destination, subject, body }: SendMailData){
+        console.log("sending email...");
         client.send({
             from: sender,
             to: [{email: destination.email, name: destination.name}],
             subject: subject,
             html: body
         })
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res);
+            console.log("Email sent");
+        })
         .catch(err => {
             console.error(err); 
             throw new Error("Error sending mail!");
