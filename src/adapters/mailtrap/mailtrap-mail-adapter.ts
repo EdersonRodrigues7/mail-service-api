@@ -16,7 +16,8 @@ export class MailtrapMailAdapter implements MailAdapter {
             from: sender,
             to: [{email: destination.email, name: destination.name}],
             subject: subject,
-            html: body
+            html: body,
+            headers: {'X-Message-Source': SENDER_EMAIL}
         })
         .then(res => {
             console.log(res);
