@@ -2,7 +2,7 @@ import { MailtrapClient } from "mailtrap";
 import { MailAdapter, SendMailData } from '../mail-adapter';
 
 // Production
-const TOKEN = process.env.MAILTRAP_PASSWORD;
+const TOKEN = "********6bd5";
 const SENDER_EMAIL = "ederson@d-dev.dev";
 
 const client = new MailtrapClient({ endpoint: process.env.MAILTRAP_HOST, token: TOKEN });
