@@ -1,7 +1,10 @@
 import { MailAdapter } from '../adapters/mail-adapter';
 
 interface BudgetRequest {
-    destination: string;
+    destination: {
+        name?: string | undefined;
+        email: string;
+    };
     name: string;
     email: string;
     product: string;

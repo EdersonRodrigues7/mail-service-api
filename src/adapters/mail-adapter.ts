@@ -1,5 +1,8 @@
 export interface SendMailData {
-    destination: string;
+    destination: {
+        name?: string | undefined;
+        email: string;
+    };
     subject: string;
     body: string;
 }

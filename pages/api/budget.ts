@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 import { NodemailerMailAdapter } from '@/src/adapters/nodemailer/nodemailer-mail-adapter';
+import { MailtrapMailAdapter } from '@/src/adapters/mailtrap/mailtrap-mail-adapter';
 import { BudgetController } from '@/src/controllers/budget-controller';
 
 // type Data = {
@@ -39,8 +40,8 @@ export default async function handler(
     await runMiddleware(req, res, cors)
     console.log(req.body);
     try {
-        const nodemailerMailAdapter = new NodemailerMailAdapter();
-        const budgetController = new BudgetController(req.body, nodemailerMailAdapter);
+        const mailtrapMailAdapter = new MailtrapMailAdapter();
+        const budgetController = new BudgetController(req.body, mailtrapMailAdapter);
         await budgetController.execute();
         return res.status(201).send({ok: "Orçamento solicitado com sucesso!"});
     } catch (error: any) {

@@ -29,7 +29,7 @@ export class NodemailerMailAdapter implements MailAdapter {
         console.log("Entrou no adapter");
         const message = {
             from: 'D-Dev Mail Service <ederson@d-dev.dev>',
-            to: destination,
+            to: destination.email,
             subject,
             html: body 
         };
