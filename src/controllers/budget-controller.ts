@@ -14,6 +14,7 @@ export class BudgetController {
         if (!this.validate(this.request)) {
             throw new Error("Requisição inválida! Por favor preencha todos os campos obrigatórios.");
         };
+        console.log("Entrou no Budget Controller");
         try{
             await this.adapter.sendMail({
                 destination: this.request.destination,
