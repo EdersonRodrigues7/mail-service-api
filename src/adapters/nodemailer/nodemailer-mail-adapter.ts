@@ -34,7 +34,7 @@ export class NodemailerMailAdapter implements MailAdapter {
             html: body 
         };
         console.log("Criou mensagem", message);
-        transport.sendMail(message, function(err){
+        await transport.sendMail(message, function(err){
             if (err) {throw new Error(err.message);}
         });
         

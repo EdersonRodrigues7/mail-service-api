@@ -1,13 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
-import { NodemailerMailAdapter } from '@/src/adapters/nodemailer/nodemailer-mail-adapter';
+// import { NodemailerMailAdapter } from '@/src/adapters/nodemailer/nodemailer-mail-adapter';
 import { MailtrapMailAdapter } from '@/src/adapters/mailtrap/mailtrap-mail-adapter';
 import { BudgetController } from '@/src/controllers/budget-controller';
-
-// type Data = {
-//   ok?: string,
-//   error?: string
-// }
 
 const cors = Cors({
   origin: "https://delta-10-landing-page.vercel.app",
@@ -38,7 +33,7 @@ export default async function handler(
 ) {
   if(req.method === 'POST'){
     await runMiddleware(req, res, cors)
-    console.log(req.body);
+
     try {
         const mailtrapMailAdapter = new MailtrapMailAdapter();
         const budgetController = new BudgetController(req.body, mailtrapMailAdapter);
